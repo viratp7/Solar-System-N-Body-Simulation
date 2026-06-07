@@ -1,5 +1,6 @@
 import pygame
 import math
+from collections import deque
 pygame.init()
 WIDTH, HEIGHT = 1500, 1000
 FPS = 60
@@ -15,6 +16,7 @@ class body:
         self.r = r
         self.mass = mass
         self.color = c
+        self.rings = deque(maxlen = 5000)
     def gravity(self, planetss, dt):
         acceleration_x = 0
         acceleration_y = 0
@@ -38,8 +40,11 @@ class body:
         self.x = newx
         self.oldy = self.y
         self.y = newy
+        self.rings.append((int(self.x), int(self.y)))
     def draw(self):
         pygame.draw.circle(win, self.color, (self.x, self.y), self.r)
+        if len(self.rings) > 1:
+            pygame.draw.aalines(win, 'White', False, list(self.rings))
 
 centerx = WIDTH//2
 centery = HEIGHT//2
