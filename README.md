@@ -12,7 +12,7 @@ Features
 - Real-time orbital motion
 - Adjustable masses, distances, and velocities (through code)
 - Verlet-based position updating
-
+- Has Orbital Rings For Visuals
 
 ---
 
@@ -31,4 +31,11 @@ Built With
 - Pygame
 - Math module
 
+--- 
 
+Possible Improvements
+
+- Make one average ring for the orbit path
+- Add zoom in and zoom out
+- Spread planets out further
+- Moons
