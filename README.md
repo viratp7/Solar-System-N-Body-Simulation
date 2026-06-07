@@ -12,6 +12,7 @@ Features
 - Real-time orbital motion
 - Adjustable masses, distances, and velocities (through code)
 - Verlet-based position updating
+- Testing Git commands
 
 
 ---
