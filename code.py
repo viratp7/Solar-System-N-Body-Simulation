@@ -41,10 +41,18 @@ class body:
         self.oldy = self.y
         self.y = newy
         self.rings.append((int(self.x), int(self.y)))
-    def draw(self):
-        pygame.draw.circle(win, self.color, (self.x, self.y), self.r)
+    def draw(self, zoom, cx, cy):
+        screen_x = cx + (self.x - cx) * zoom
+        screen_y = cy + (self.y - cy) * zoom
+        pygame.draw.circle(win, self.color, (int(screen_x), int(screen_y)), int(self.r*zoom))
+        zoomed_lines = []
         if len(self.rings) > 1:
-            pygame.draw.aalines(win, 'White', False, list(self.rings))
+            for lx, ly in self.rings:
+                s_x = cx + (lx - cx) * zoom
+                s_y = cy + (ly - cy) * zoom
+                zoomed_lines.append((int(s_x), int(s_y)))
+
+            pygame.draw.aalines(win, 'White', False, list(zoomed_lines))
 
 centerx = WIDTH//2
 centery = HEIGHT//2
@@ -67,16 +75,20 @@ system = [sun, mercury,venus, earth, mars, jupiter, saturn, uranus, neptune]
 def main():
     running = True
     clock = pygame.time.Clock()
+    
 
     while running:
-        
+        zoom = 1 #Change this for zoom in and zoom out
+        anchor_x = system[0].x
+        anchor_y = system[0].y
         win.fill((0,0,0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
         for i in system:
-            i.draw()
             i.gravity(system, DT)
+        for i in system:
+            i.draw(zoom, anchor_x, anchor_y)
         pygame.display.update()
         clock.tick(FPS)
     pygame.quit()

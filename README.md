@@ -13,7 +13,7 @@ Features
 - Adjustable masses, distances, and velocities (through code)
 - Verlet-based position updating
 - Has Orbital Rings For Visuals
-
+- Zoom Feature (Adjusted in code, not through user)
 ---
 
 Physics Concepts Used
@@ -35,7 +35,8 @@ Built With
 
 Possible Improvements
 
-- Make one average ring for the orbit path
-- Add zoom in and zoom out
+- Make one average ring for the orbit path (maybe)
+- Zoom in and zoom out using mouse
 - Spread planets out further
+- Bigger planets and more accurate scaling
 - Moons
