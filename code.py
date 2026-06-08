@@ -75,16 +75,23 @@ system = [sun, mercury,venus, earth, mars, jupiter, saturn, uranus, neptune]
 def main():
     running = True
     clock = pygame.time.Clock()
-    
-
+    zoom = 1 
+    anchor_x = system[0].x
+    anchor_y = system[0].y
+    Maxz = 10
+    Minz = 0.05
     while running:
-        zoom = 1 #Change this for zoom in and zoom out
-        anchor_x = system[0].x
-        anchor_y = system[0].y
+
+
         win.fill((0,0,0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 4:
+                    zoom = min(Maxz, zoom * 1.1)
+                elif event.button == 5:
+                    zoom = max(Minz, zoom / 1.1)
         for i in system:
             i.gravity(system, DT)
         for i in system:
