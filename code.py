@@ -44,7 +44,7 @@ class body:
     def draw(self, zoom, cx, cy):
         screen_x = cx + (self.x - cx) * zoom
         screen_y = cy + (self.y - cy) * zoom
-        pygame.draw.circle(win, self.color, (int(screen_x), int(screen_y)), int(self.r*zoom))
+        pygame.draw.circle(win, self.color, (int(screen_x), int(screen_y)), int(max(1,self.r*zoom)))
         zoomed_lines = []
         if len(self.rings) > 1:
             for lx, ly in self.rings:
@@ -57,27 +57,46 @@ class body:
 centerx = WIDTH//2
 centery = HEIGHT//2
 DT = 0.005
-sun_mass = 2000000
+sun_mass = 200000
 
-sun = body(centerx, centery, 25, mass=sun_mass, vx = 0, vy=0, dt=DT, c="Yellow")
+
+sun = body(centerx, centery, 200, mass=sun_mass, vx = 0, vy=0, dt=DT, c="Yellow")
+
 def speed(distance):
     e = (math.sqrt((G*sun_mass)/distance))
     return e
-mercury = body(centerx-60,  centery, 3, 0.33, 0, speed(60),  DT, (169,169,169))
-venus = body(centerx-90,  centery, 5, 4.87, 0, speed(90),  DT, (230,194,128))
-earth = body(centerx-130, centery, 5, 5.97, 0, speed(130), DT, (0,100,255))
-mars = body(centerx-180, centery, 4, 0.64, 0, speed(180), DT, (193,68,14))
-jupiter = body(centerx-280, centery, 12, 1898, 0, speed(280), DT, (216,160,96))
-saturn = body(centerx-380, centery, 10, 568,  0, speed(380), DT, (226,191,125))
-uranus = body(centerx-500, centery, 8, 86.8, 0, speed(500), DT, (173,216,230))
-neptune = body(centerx-620, centery, 8, 102,  0, speed(620), DT, (39,64,139))
+
+mer_pos = 354
+mercury = body(centerx-mer_pos, centery, 3, 0.33, 0, speed(mer_pos), DT, (169,169,169))
+
+ven_pos = 488
+venus = body(centerx-ven_pos, centery, 5, 4.87, 0, speed(ven_pos), DT, (230,194,128))
+
+ear_pos = 599
+earth = body(centerx-ear_pos, centery, 6, 5.97, 0, speed(ear_pos), DT, (0,100,255))
+
+mars_pos = 808
+mars = body(centerx-mars_pos, centery, 4, 0.64, 0, speed(mars_pos), DT, (193,68,14))
+
+jup_pos = 2078
+jupiter = body(centerx-jup_pos, centery, 40, 1898, 0, speed(jup_pos), DT, (216,160,96))
+
+sat_pos = 3828
+saturn = body(centerx-sat_pos, centery, 18, 568, 0, speed(sat_pos), DT, (226,191,125))
+
+uran_pos = 7664
+uranus = body(centerx-uran_pos, centery, 12, 86.8, 0, speed(uran_pos), DT, (173,216,230))
+
+nept_pos = 12000
+neptune = body(centerx-nept_pos, centery, 12, 102, 0, speed(nept_pos), DT, (39,64,139))
+
 system = [sun, mercury,venus, earth, mars, jupiter, saturn, uranus, neptune]
 def main():
     running = True
     clock = pygame.time.Clock()
     zoom = 1 
-    anchor_x = system[0].x
-    anchor_y = system[0].y
+    anchor_x = int(system[0].x)
+    anchor_y = int(system[0].y)
     Maxz = 10
     Minz = 0.05
     while running:
